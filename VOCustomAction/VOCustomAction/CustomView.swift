@@ -8,20 +8,24 @@
 
 import Cocoa
 
-class CustomView: NSView {
-	
+class CustomView: NSView, NSAccessibilityButton {
+
 	override func isAccessibilityElement() -> Bool {
 		return true
 	}
-	
-	override func accessibilityTitle() -> String? {
-		return "Custom Action"
-	}
-	
+
 	override func accessibilityRole() -> NSAccessibility.Role? {
-		return NSAccessibility.Role.button
+		return NSAccessibility.Role.checkBox
 	}
 
+	override func accessibilitySubrole() -> NSAccessibility.Subrole? {
+		return NSAccessibility.Subrole.toggle
+	}
+
+	override func accessibilityValue() -> Any? {
+		return 1
+	}
+	
 	override func accessibilityCustomActions() -> [NSAccessibilityCustomAction]? {
 		let action1 = NSAccessibilityCustomAction(name: "Do Something else", target: self, selector: #selector(doSomethingElse))
 		let action2 = NSAccessibilityCustomAction(name: "Do Something", target: self, selector: #selector(doSomething))
